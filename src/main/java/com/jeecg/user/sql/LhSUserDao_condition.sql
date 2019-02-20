@@ -48,7 +48,8 @@
 		</#if>
 		<#if ( lhSUser.parent )?? && lhSUser.parent ?length gt 0>
 		    /* parent */
-			and lsu.PARENT = :lhSUser.parent
+			/* and lsu.PARENT like :lhSUser.parent */ 
+			and lsu.PARENT like CONCAT('%', :lhSUser.parent ,'%') 
 		</#if>
 		<#if ( lhSUser.xcxid )?? && lhSUser.xcxid ?length gt 0>
 		    /* xcxid */
