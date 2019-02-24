@@ -42,4 +42,7 @@ SET
 	   <#if lhSUser.xcxid ?exists>
 		   XCXID = :lhSUser.xcxid,
 		</#if>
+	   <#if lhSUser.deptid ?exists>
+		   DEPTID = :lhSUser.deptid,
+		</#if>
 WHERE id = :lhSUser.id

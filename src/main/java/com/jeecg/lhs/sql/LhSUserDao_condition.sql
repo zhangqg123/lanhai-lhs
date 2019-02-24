@@ -55,3 +55,7 @@
 		    /* xcxid */
 			and lsu.XCXID = :lhSUser.xcxid
 		</#if>
+		<#if ( lhSUser.deptid )?? && lhSUser.deptid ?length gt 0>
+		    /* xcxid */
+			and lsu.DEPTID = :lhSUser.deptid
+		</#if>

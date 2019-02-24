@@ -14,7 +14,8 @@ INSERT  INTO
       ,USERTYPE                       
       ,OPENID                         
       ,PARENT                         
-      ,XCXID                          
+      ,XCXID         
+      ,DEPTID
       ) 
 values
       (
@@ -32,4 +33,5 @@ values
       ,:lhSUser.openid                        
       ,:lhSUser.parent                        
       ,:lhSUser.xcxid                         
+      ,:lhSUser.deptid                        
       )

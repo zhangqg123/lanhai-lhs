@@ -11,7 +11,7 @@
 						<div class="panel-heading">列表</div>
 						<div class="panel-body">
 							<div class="search">
-										 <div class="form-group col-sm-3">
+							<!--			 <div class="form-group col-sm-3">
 											<label for="phone" class="control-label col-sm-3 line34">手机</label>
 											<div class="col-sm-8">
 												<input type="text" name="phone" id="phone" value="$!{lhSUser.phone}" class="form-control">
@@ -64,14 +64,14 @@
 											<div class="col-sm-8">
 												<input type="text" name="address" id="address" value="$!{lhSUser.address}" class="form-control">
 											</div>
-										 </div>
+											</div>	-->
 										 <div class="form-group col-sm-3">
 											<label for="usertype" class="control-label col-sm-3 line34">用户类型</label>
 											<div class="col-sm-8">
 												<input type="text" name="usertype" id="usertype" value="$!{lhSUser.usertype}" class="form-control">
 											</div>
 										 </div>
-										 <div class="form-group col-sm-3">
+							<!--			 <div class="form-group col-sm-3">
 											<label for="openid" class="control-label col-sm-3 line34">openid</label>
 											<div class="col-sm-8">
 												<input type="text" name="openid" id="openid" value="$!{lhSUser.openid}" class="form-control">
@@ -88,7 +88,7 @@
 											<div class="col-sm-8">
 												<input type="text" name="xcxid" id="xcxid" value="$!{lhSUser.xcxid}" class="form-control">
 											</div>
-										 </div>
+											</div>	-->
 								<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> 搜  索</button>
 								<button type="button" class="btn btn-primary" onclick="searchReset()"><i class="fa fa-refresh"></i> 重  置</button>
 								<div class="clearfix"></div>
@@ -104,19 +104,19 @@
 									<th>
 											<input type="checkbox" name="ckAll" id="ckAll" />
 					        		</th>
-											<th>手机</th>
+									<!--		<th>手机</th>		-->
 											<th>用户账号</th>
-											<th>密码</th>
+									<!--		<th>密码</th>
 											<th>有效状态</th>
 											<th>用户KEY</th>
-											<th>身份证号</th>
+											<th>身份证号</th>	-->
 											<th>真实名字</th>
 											<th>性别</th>
 											<th>地址</th>
 											<th>用户类型</th>
-											<th>openid</th>
+									<!--		<th>openid</th>
 											<th>parent</th>
-											<th>xcxid</th>
+											<th>xcxid</th>	-->
 									<th>操作</th>
 								</thead>
 								<tbody>
@@ -126,19 +126,19 @@
 											<td>
 													<input type="checkbox" name="ck" id="ck_$!{velocityCount}" value="$!{info.id}"/>
 											</td>	
-														<td>$!{info.phone}</td>
+											<!--			<td>$!{info.phone}</td>	-->
 														<td>$!{info.username}</td>
-														<td>$!{info.password}</td>
+											<!--			<td>$!{info.password}</td>
 														<td>$!{info.status}</td>
 														<td>$!{info.userkey}</td>
-														<td>$!{info.idcard}</td>
+														<td>$!{info.idcard}</td>	-->
 														<td>$!{info.realname}</td>
 														<td>$!{info.sex}</td>
 														<td>$!{info.address}</td>
 														<td>$!{info.usertype}</td>
-														<td>$!{info.openid}</td>
+											<!--			<td>$!{info.openid}</td>
 														<td>$!{info.parent}</td>
-														<td>$!{info.xcxid}</td>
+														<td>$!{info.xcxid}</td>	-->
 											<td class="last">
 											<a class="btn btn-success btn-xs"  href="javascript:doUrl('$!{basePath}/jeecg/lhSUser.do?toEdit&id=$!{info.id}')" ><i class="fa fa-edit"></i> 编辑</a>
 											<a class="btn btn-danger btn-xs" href="javascript:delData('$!{basePath}/jeecg/lhSUser.do?doDelete&id=$!{info.id}')"><i class="fa fa-trash-o"></i> 删除</a>
