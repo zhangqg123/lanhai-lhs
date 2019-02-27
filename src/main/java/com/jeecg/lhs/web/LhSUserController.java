@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.jeecg.lhs.entity.LhSDeptEntity;
 import com.jeecg.lhs.entity.LhSUserEntity;
+import com.jeecg.lhs.service.LhSDeptService;
 import com.jeecg.lhs.service.LhSUserService;
 
 /**
@@ -31,6 +33,8 @@ import com.jeecg.lhs.service.LhSUserService;
 public class LhSUserController extends BaseController{
   @Autowired
   private LhSUserService lhSUserService;
+  @Autowired
+  private LhSDeptService lhSDeptService;
   
 	/**
 	  * 列表页面
@@ -103,11 +107,13 @@ public class LhSUserController extends BaseController{
 	 */
 	@RequestMapping(params="toEdit",method = RequestMethod.GET)
 	public void toEdit(@RequestParam(required = true, value = "id" ) String id,HttpServletResponse response,HttpServletRequest request) throws Exception{
-			 VelocityContext velocityContext = new VelocityContext();
-			 LhSUserEntity lhSUser = lhSUserService.get(id);
-			 velocityContext.put("lhSUser",lhSUser);
-			 String viewName = "jeecg/user/lhSUser-edit.vm";
-			 ViewVelocity.view(request,response,viewName,velocityContext);
+		MiniDaoPage<LhSDeptEntity> list =  lhSDeptService.getAll(new LhSDeptEntity(),1,200);
+		VelocityContext velocityContext = new VelocityContext();
+		LhSUserEntity lhSUser = lhSUserService.get(id);
+		velocityContext.put("lhSUser",lhSUser);
+		velocityContext.put("deptList",list.getResults());
+		String viewName = "jeecg/user/lhSUser-edit.vm";
+		ViewVelocity.view(request,response,viewName,velocityContext);
 	}
 
 	/**

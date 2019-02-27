@@ -25,6 +25,7 @@
 											<th>小程序ID</th>
 											<th>小程序密钥</th>
 											<th>关联用户</th>
+											<th>手机</th>
 									<th>操作</th>
 								</thead>
 								<tbody>
@@ -38,6 +39,7 @@
 														<td>$!{info.appId}</td>
 														<td>$!{info.appSecret}</td>
 														<td>$!{info.userId}</td>
+														<td>$!{info.phone}</td>
 											<td class="last">
 											<a class="btn btn-success btn-xs"  href="javascript:doUrl('$!{basePath}/jeecg/lhSAccount.do?toEdit&id=$!{info.id}')" ><i class="fa fa-edit"></i> 编辑</a>
 											<a class="btn btn-danger btn-xs" href="javascript:delData('$!{basePath}/jeecg/lhSAccount.do?doDelete&id=$!{info.id}')"><i class="fa fa-trash-o"></i> 删除</a>

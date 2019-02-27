@@ -5,7 +5,8 @@ INSERT  INTO
       ,ACCOUNT_NAME                   
       ,APP_ID                         
       ,APP_SECRET                     
-      ,USER_ID      
+      ,USER_ID  
+      ,phone
       ,lat
       ,lng
       ,aes_key
@@ -21,6 +22,7 @@ values
       ,:lhSAccount.appId                         
       ,:lhSAccount.appSecret                     
       ,:lhSAccount.userId                        
+      ,:lhSAccount.phone                        
       ,:lhSAccount.lat                        
       ,:lhSAccount.lng                        
       ,:lhSAccount.aesKey                        

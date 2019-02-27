@@ -15,6 +15,9 @@ SET
 	   <#if lhSAccount.userId ?exists>
 		   USER_ID = :lhSAccount.userId,
 		</#if>
+	   <#if lhSAccount.phone ?exists>
+		   phone = :lhSAccount.phone,
+		</#if>
 	   <#if lhSAccount.lat ?exists>
 		   lat = :lhSAccount.lat,
 		</#if>

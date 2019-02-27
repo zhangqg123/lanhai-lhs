@@ -14,6 +14,7 @@ public class LhSAccountEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 		/**	 *账号ID	 */	private String id;	/**	 *账号名称	 */	private String accountName;	/**	 *小程序ID	 */	private String appId;	/**	 *小程序密钥	 */	private String appSecret;	/**	 *关联用户	 */	private String userId;
 	private String roleCode;
+	private String phone;
 	
 	private String lat;
 	private String lng;
@@ -70,6 +71,12 @@ public class LhSAccountEntity implements Serializable{
 	}
 	public void setSmsTemplateid(String smsTemplateid) {
 		this.smsTemplateid = smsTemplateid;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 }
 
