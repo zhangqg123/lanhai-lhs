@@ -57,6 +57,9 @@ public interface LhSUserDao{
 	 */
 	 @Sql("DELETE from lh_s_user WHERE ID = :id")
 	 public void deleteById(@Param("id") String id);
+	 
+	@Sql("SELECT * FROM lh_s_user WHERE openid = :openId")
+	LhSUserEntity getByOpenId(@Param("openId") String openId);
 	
 }
 

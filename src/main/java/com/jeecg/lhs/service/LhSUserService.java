@@ -23,5 +23,7 @@ public interface LhSUserService {
 	public void delete(String id);
 	
 	public void batchDelete(String[] ids);
+
+	public LhSUserEntity getByOpenId(String openId);
 	
 }

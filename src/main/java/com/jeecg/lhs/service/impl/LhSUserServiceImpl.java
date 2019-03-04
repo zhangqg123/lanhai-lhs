@@ -59,4 +59,10 @@ public class LhSUserServiceImpl implements LhSUserService {
 			lhSUserDao.deleteById(id);
 		}
 	}
+
+	@Override
+	public LhSUserEntity getByOpenId(String openId) {
+		// TODO Auto-generated method stub
+		return lhSUserDao.getByOpenId(openId);
+	}
 }
