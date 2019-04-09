@@ -59,3 +59,7 @@
 		    /* xcxid */
 			and lsu.DEPTID = :lhSUser.deptid
 		</#if>
+		<#if ( lhSUser.roleId )?? && lhSUser.roleId ?length gt 0>
+		    /* xcxid */
+			and lsu.role_id = :lhSUser.roleId
+		</#if>

@@ -1,10 +1,7 @@
 package com.jeecg.lhs.web;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.velocity.VelocityContext;
 import org.jeecgframework.minidao.pojo.MiniDaoPage;
 import org.jeecgframework.p3.core.common.utils.AjaxJson;
@@ -18,41 +15,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.jeecg.lhs.entity.LhSAccountEntity;
-import com.jeecg.lhs.entity.User;
-import com.jeecg.lhs.service.LhSAccountService;
+import com.jeecg.lhs.entity.LhSRoleEntity;
+import com.jeecg.lhs.service.LhSRoleService;
 
  /**
- * 描述：账号表
+ * 描述：角色表
  * @author: www.jeecg.org
- * @since：2019年01月24日 15时03分32秒 星期四 
+ * @since：2019年04月09日 14时33分52秒 星期二 
  * @version:1.0
  */
 @Controller
-@RequestMapping("/jeecg/lhSAccount")
-public class LhSAccountController extends BaseController{
+@RequestMapping("/jeecg/lhSRole")
+public class LhSRoleController extends BaseController{
   @Autowired
-  private LhSAccountService lhSAccountService;
+  private LhSRoleService lhSRoleService;
   
 	/**
 	  * 列表页面
 	  * @return
 	  */
 	@RequestMapping(params = "list",method = {RequestMethod.GET,RequestMethod.POST})
-	public void list(@ModelAttribute LhSAccountEntity query,HttpServletRequest request,HttpServletResponse response,
+	public void list(@ModelAttribute LhSRoleEntity query,HttpServletRequest request,HttpServletResponse response,
 			@RequestParam(required = false, value = "pageNo", defaultValue = "1") int pageNo,
 			@RequestParam(required = false, value = "pageSize", defaultValue = "10") int pageSize) throws Exception{
 			try {
 			 	LOG.info(request, " back list");
 			 	//分页数据
-				MiniDaoPage<LhSAccountEntity> list =  lhSAccountService.getAll(query,pageNo,pageSize);
-				List<User> userList=lhSAccountService.getUserList();
+				MiniDaoPage<LhSRoleEntity> list =  lhSRoleService.getAll(query,pageNo,pageSize);
 				VelocityContext velocityContext = new VelocityContext();
-				velocityContext.put("lhSAccount",query);
+				velocityContext.put("lhSRole",query);
 				velocityContext.put("pageInfos",SystemTools.convertPaginatedList(list));
-				velocityContext.put("userList",userList);
-				String viewName = "jeecg/lhs/lhSAccount-list.vm";
+				String viewName = "jeecg/lhs/lhSRole-list.vm";
 				ViewVelocity.view(request,response,viewName,velocityContext);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -64,11 +57,11 @@ public class LhSAccountController extends BaseController{
 	  * @return
 	  */
 	@RequestMapping(params="toDetail",method = RequestMethod.GET)
-	public void lhSAccountDetail(@RequestParam(required = true, value = "id" ) String id,HttpServletResponse response,HttpServletRequest request)throws Exception{
+	public void lhSRoleDetail(@RequestParam(required = true, value = "id" ) String id,HttpServletResponse response,HttpServletRequest request)throws Exception{
 			VelocityContext velocityContext = new VelocityContext();
-			String viewName = "jeecg/lhs/lhSAccount-detail.vm";
-			LhSAccountEntity lhSAccount = lhSAccountService.get(id);
-			velocityContext.put("lhSAccount",lhSAccount);
+			String viewName = "jeecg/lhs/lhSRole-detail.vm";
+			LhSRoleEntity lhSRole = lhSRoleService.get(id);
+			velocityContext.put("lhSRole",lhSRole);
 			ViewVelocity.view(request,response,viewName,velocityContext);
 	}
 
@@ -78,11 +71,9 @@ public class LhSAccountController extends BaseController{
 	 */
 	@RequestMapping(params = "toAdd",method ={RequestMethod.GET, RequestMethod.POST})
 	public void toAddDialog(HttpServletRequest request,HttpServletResponse response)throws Exception{
-		List<User> userList=lhSAccountService.getUserList();
-		VelocityContext velocityContext = new VelocityContext();
-		velocityContext.put("userList",userList);
-		String viewName = "jeecg/lhs/lhSAccount-add.vm";
-		ViewVelocity.view(request,response,viewName,velocityContext);
+		 VelocityContext velocityContext = new VelocityContext();
+		 String viewName = "jeecg/lhs/lhSRole-add.vm";
+		 ViewVelocity.view(request,response,viewName,velocityContext);
 	}
 
 	/**
@@ -91,10 +82,10 @@ public class LhSAccountController extends BaseController{
 	 */
 	@RequestMapping(params = "doAdd",method ={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public AjaxJson doAdd(@ModelAttribute LhSAccountEntity lhSAccount){
+	public AjaxJson doAdd(@ModelAttribute LhSRoleEntity lhSRole){
 		AjaxJson j = new AjaxJson();
 		try {
-			lhSAccountService.insert(lhSAccount);
+			lhSRoleService.insert(lhSRole);
 			j.setMsg("保存成功");
 		} catch (Exception e) {
 			j.setSuccess(false);
@@ -110,13 +101,11 @@ public class LhSAccountController extends BaseController{
 	 */
 	@RequestMapping(params="toEdit",method = RequestMethod.GET)
 	public void toEdit(@RequestParam(required = true, value = "id" ) String id,HttpServletResponse response,HttpServletRequest request) throws Exception{
-		List<User> userList=lhSAccountService.getUserList();
-		VelocityContext velocityContext = new VelocityContext();
-		LhSAccountEntity lhSAccount = lhSAccountService.get(id);
-		velocityContext.put("lhSAccount",lhSAccount);
-		velocityContext.put("userList",userList);
-		String viewName = "jeecg/lhs/lhSAccount-edit.vm";
-		ViewVelocity.view(request,response,viewName,velocityContext);
+			 VelocityContext velocityContext = new VelocityContext();
+			 LhSRoleEntity lhSRole = lhSRoleService.get(id);
+			 velocityContext.put("lhSRole",lhSRole);
+			 String viewName = "jeecg/lhs/lhSRole-edit.vm";
+			 ViewVelocity.view(request,response,viewName,velocityContext);
 	}
 
 	/**
@@ -125,10 +114,10 @@ public class LhSAccountController extends BaseController{
 	 */
 	@RequestMapping(params = "doEdit",method ={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public AjaxJson doEdit(@ModelAttribute LhSAccountEntity lhSAccount){
+	public AjaxJson doEdit(@ModelAttribute LhSRoleEntity lhSRole){
 		AjaxJson j = new AjaxJson();
 		try {
-			lhSAccountService.update(lhSAccount);
+			lhSRoleService.update(lhSRole);
 			j.setMsg("编辑成功");
 		} catch (Exception e) {
 			j.setSuccess(false);
@@ -148,7 +137,7 @@ public class LhSAccountController extends BaseController{
 	public AjaxJson doDelete(@RequestParam(required = true, value = "id" ) String id){
 			AjaxJson j = new AjaxJson();
 			try {
-				lhSAccountService.delete(id);
+				lhSRoleService.delete(id);
 				j.setMsg("删除成功");
 			} catch (Exception e) {
 				j.setSuccess(false);
@@ -168,7 +157,7 @@ public class LhSAccountController extends BaseController{
 	public AjaxJson batchDelete(@RequestParam(required = true, value = "ids") String[] ids) {
 		AjaxJson j = new AjaxJson();
 		try {
-			lhSAccountService.batchDelete(ids);
+			lhSRoleService.batchDelete(ids);
 			j.setMsg("批量删除成功");
 		} catch(Exception e) {
 			j.setSuccess(false);

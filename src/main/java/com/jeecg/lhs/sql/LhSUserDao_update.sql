@@ -45,4 +45,7 @@ SET
 	   <#if lhSUser.deptid ?exists>
 		   DEPTID = :lhSUser.deptid,
 		</#if>
+	   <#if lhSUser.roleId ?exists>
+		   role_id = :lhSUser.roleId,
+		</#if>
 WHERE id = :lhSUser.id

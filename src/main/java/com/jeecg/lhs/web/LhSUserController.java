@@ -51,7 +51,7 @@ public class LhSUserController extends BaseController{
 				VelocityContext velocityContext = new VelocityContext();
 				velocityContext.put("lhSUser",query);
 				velocityContext.put("pageInfos",SystemTools.convertPaginatedList(list));
-				String viewName = "jeecg/user/lhSUser-list.vm";
+				String viewName = "jeecg/lhs/lhSUser-list.vm";
 				ViewVelocity.view(request,response,viewName,velocityContext);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -65,7 +65,7 @@ public class LhSUserController extends BaseController{
 	@RequestMapping(params="toDetail",method = RequestMethod.GET)
 	public void lhSUserDetail(@RequestParam(required = true, value = "id" ) String id,HttpServletResponse response,HttpServletRequest request)throws Exception{
 			VelocityContext velocityContext = new VelocityContext();
-			String viewName = "jeecg/user/lhSUser-detail.vm";
+			String viewName = "jeecg/lhs/lhSUser-detail.vm";
 			LhSUserEntity lhSUser = lhSUserService.get(id);
 			velocityContext.put("lhSUser",lhSUser);
 			ViewVelocity.view(request,response,viewName,velocityContext);
@@ -78,7 +78,7 @@ public class LhSUserController extends BaseController{
 	@RequestMapping(params = "toAdd",method ={RequestMethod.GET, RequestMethod.POST})
 	public void toAddDialog(HttpServletRequest request,HttpServletResponse response)throws Exception{
 		 VelocityContext velocityContext = new VelocityContext();
-		 String viewName = "jeecg/user/lhSUser-add.vm";
+		 String viewName = "jeecg/lhs/lhSUser-add.vm";
 		 ViewVelocity.view(request,response,viewName,velocityContext);
 	}
 
@@ -112,7 +112,7 @@ public class LhSUserController extends BaseController{
 		LhSUserEntity lhSUser = lhSUserService.get(id);
 		velocityContext.put("lhSUser",lhSUser);
 		velocityContext.put("deptList",list.getResults());
-		String viewName = "jeecg/user/lhSUser-edit.vm";
+		String viewName = "jeecg/lhs/lhSUser-edit.vm";
 		ViewVelocity.view(request,response,viewName,velocityContext);
 	}
 

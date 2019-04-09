@@ -16,6 +16,7 @@ INSERT  INTO
       ,PARENT                         
       ,XCXID         
       ,DEPTID
+      ,role_id
       ) 
 values
       (
@@ -34,4 +35,5 @@ values
       ,:lhSUser.parent                        
       ,:lhSUser.xcxid                         
       ,:lhSUser.deptid                        
+      ,:lhSUser.roleId                        
       )
