@@ -33,6 +33,7 @@ import com.jeecg.lhs.entity.LhSDeptEntity;
 import com.jeecg.lhs.entity.LhSUserEntity;
 import com.jeecg.lhs.service.LhSAccountService;
 import com.jeecg.lhs.service.LhSDeptService;
+import com.jeecg.lhs.service.LhSRoleService;
 import com.jeecg.lhs.service.LhSUserService;
 import com.jeecg.lhs.utils.AES128Util;
 import com.jeecg.lhs.utils.PasswordUtil;
@@ -52,6 +53,8 @@ public class LhSApiController extends BaseController{
 	private LhSAccountService lhSAccountService;
 	@Autowired
 	private LhSDeptService lhSDeptService;
+	@Autowired
+	private LhSRoleService lhSRoleService;
   
 	
 	@RequestMapping(value="/dept")
@@ -104,21 +107,21 @@ public class LhSApiController extends BaseController{
 	public @ResponseBody AjaxJson login(HttpServletRequest request, @RequestBody LhSUserEntity lhSUser) {
 		AjaxJson j = new AjaxJson();
 		if(lhSUser.getUsername()!=null&&lhSUser.getPassword()!=null){
-			String appId=request.getParameter("xcxId");
+			String xcxId=request.getParameter("xcxId");
 			String encryptPass="";
 			try{
-				LhSAccountEntity lhSAccount = lhSAccountService.getByAppId(appId);
+				LhSAccountEntity lhSAccount = lhSAccountService.getByAppId(xcxId);
 				encryptPass = AES128Util.decrypt(lhSUser.getPassword(), lhSAccount.getAesKey() ,lhSAccount.getIvKey());
 				lhSUser.setPassword(PasswordUtil.encrypt(lhSUser.getUsername(), encryptPass, PasswordUtil.getStaticSalt()));
-
+				lhSUser.setXcxid(xcxId);
 				MiniDaoPage<LhSUserEntity> list = lhSUserService.getAll(lhSUser, 1, 10);
 				List<LhSUserEntity> lhSUserList = list.getResults();
 				if(lhSUserList.size()==1){
-					System.out.println("lhSUserList.size:"+lhSUserList.size()+"个");
 					lhSUser=lhSUserList.get(0);
-					
+					String roleCode = lhSRoleService.get(lhSUser.getRoleId()).getRoleCode();
 					Map<String,Object> attributes=new HashMap<String,Object>();
 					attributes.put("login_code", lhSUser.getId());
+					attributes.put("role_code", roleCode);
 					attributes.put("status", lhSUser.getStatus());
 					j.setAttributes(attributes);
 					j.setSuccess(true);

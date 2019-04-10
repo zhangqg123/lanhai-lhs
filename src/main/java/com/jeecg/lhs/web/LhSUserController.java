@@ -17,9 +17,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.jeecg.lhs.entity.LhSAccountEntity;
 import com.jeecg.lhs.entity.LhSDeptEntity;
+import com.jeecg.lhs.entity.LhSRoleEntity;
 import com.jeecg.lhs.entity.LhSUserEntity;
+import com.jeecg.lhs.service.LhSAccountService;
 import com.jeecg.lhs.service.LhSDeptService;
+import com.jeecg.lhs.service.LhSRoleService;
 import com.jeecg.lhs.service.LhSUserService;
 
 /**
@@ -35,6 +39,10 @@ public class LhSUserController extends BaseController{
   private LhSUserService lhSUserService;
   @Autowired
   private LhSDeptService lhSDeptService;
+  @Autowired
+  private LhSRoleService lhSRoleService;
+  @Autowired
+  private LhSAccountService lhSAccountService;
   
 	/**
 	  * 列表页面
@@ -47,9 +55,17 @@ public class LhSUserController extends BaseController{
 			try {
 			 	LOG.info(request, " back list");
 			 	//分页数据
+				MiniDaoPage<LhSAccountEntity> alist =  lhSAccountService.getAll(new LhSAccountEntity(),1,100);
 				MiniDaoPage<LhSUserEntity> list =  lhSUserService.getAll(query,pageNo,pageSize);
 				VelocityContext velocityContext = new VelocityContext();
 				velocityContext.put("lhSUser",query);
+				if(query.getXcxid()!=null){
+					LhSRoleEntity lhSRoleEntity=new LhSRoleEntity();
+					lhSRoleEntity.setXcxId(query.getXcxid());
+					MiniDaoPage<LhSRoleEntity> rlist =  lhSRoleService.getAll(lhSRoleEntity,1,100);
+					velocityContext.put("roleList",rlist.getResults());
+				}
+				velocityContext.put("accountList",alist.getResults());
 				velocityContext.put("pageInfos",SystemTools.convertPaginatedList(list));
 				String viewName = "jeecg/lhs/lhSUser-list.vm";
 				ViewVelocity.view(request,response,viewName,velocityContext);
@@ -77,9 +93,15 @@ public class LhSUserController extends BaseController{
 	 */
 	@RequestMapping(params = "toAdd",method ={RequestMethod.GET, RequestMethod.POST})
 	public void toAddDialog(HttpServletRequest request,HttpServletResponse response)throws Exception{
-		 VelocityContext velocityContext = new VelocityContext();
-		 String viewName = "jeecg/lhs/lhSUser-add.vm";
-		 ViewVelocity.view(request,response,viewName,velocityContext);
+		String xcxid=request.getParameter("xcxid");
+		LhSUserEntity lhSUser = new LhSUserEntity();
+		if(xcxid!=null){
+			lhSUser.setXcxid(xcxid);
+		}
+		VelocityContext velocityContext = new VelocityContext();
+		String viewName = "jeecg/lhs/lhSUser-add.vm";
+		velocityContext.put("lhSUser",lhSUser);
+		ViewVelocity.view(request,response,viewName,velocityContext);
 	}
 
 	/**
@@ -110,8 +132,12 @@ public class LhSUserController extends BaseController{
 		MiniDaoPage<LhSDeptEntity> list =  lhSDeptService.getAll(new LhSDeptEntity(),1,200);
 		VelocityContext velocityContext = new VelocityContext();
 		LhSUserEntity lhSUser = lhSUserService.get(id);
+		LhSRoleEntity lhSRoleEntity=new LhSRoleEntity();
+		lhSRoleEntity.setXcxId(lhSUser.getXcxid());
+		MiniDaoPage<LhSRoleEntity> rlist =  lhSRoleService.getAll(lhSRoleEntity,1,100);
 		velocityContext.put("lhSUser",lhSUser);
 		velocityContext.put("deptList",list.getResults());
+		velocityContext.put("roleList",rlist.getResults());
 		String viewName = "jeecg/lhs/lhSUser-edit.vm";
 		ViewVelocity.view(request,response,viewName,velocityContext);
 	}

@@ -2,6 +2,10 @@
 		    /* 编号 */
 			and lsr.ID = :lhSRole.id
 		</#if>
+		<#if ( lhSRole.roleCode )?? && lhSRole.roleCode ?length gt 0>
+		    /* 名称 */
+			and lsr.ROLE_CODE = :lhSRole.roleCode
+		</#if>
 		<#if ( lhSRole.roleName )?? && lhSRole.roleName ?length gt 0>
 		    /* 名称 */
 			and lsr.ROLE_NAME = :lhSRole.roleName

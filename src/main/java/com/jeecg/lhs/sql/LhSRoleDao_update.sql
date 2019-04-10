@@ -3,6 +3,9 @@ SET
 	   <#if lhSRole.id ?exists>
 		   ID = :lhSRole.id,
 		</#if>
+	   <#if lhSRole.roleCode ?exists>
+		   ROLE_CODE = :lhSRole.roleCode,
+		</#if>
 	   <#if lhSRole.roleName ?exists>
 		   ROLE_NAME = :lhSRole.roleName,
 		</#if>

@@ -1,7 +1,8 @@
 INSERT  INTO
 	lh_s_role
       ( 
-      ID                            
+      ID       
+      ,ROLE_CODE
       ,ROLE_NAME                      
       ,CREATE_BY                      
       ,XCX_ID                         
@@ -9,7 +10,8 @@ INSERT  INTO
       ) 
 values
       (
-      :lhSRole.id                            
+      :lhSRole.id  
+      ,:lhSRole.roleCode  
       ,:lhSRole.roleName                      
       ,:lhSRole.createBy                      
       ,:lhSRole.xcxId                         

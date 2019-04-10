@@ -12,6 +12,13 @@ import java.math.BigDecimal;
  */
 public class LhSRoleEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
-		/**	 *编号	 */	private String id;	/**	 *名称	 */	private String roleName;	/**	 *创建人	 */	private String createBy;	/**	 * 小程序id	 */	private String xcxId;	/**	 *类型	 */	private String userType;	public String getId() {	    return this.id;	}	public void setId(String id) {	    this.id=id;	}	public String getRoleName() {	    return this.roleName;	}	public void setRoleName(String roleName) {	    this.roleName=roleName;	}	public String getCreateBy() {	    return this.createBy;	}	public void setCreateBy(String createBy) {	    this.createBy=createBy;	}	public String getXcxId() {	    return this.xcxId;	}	public void setXcxId(String xcxId) {	    this.xcxId=xcxId;	}	public String getUserType() {	    return this.userType;	}	public void setUserType(String userType) {	    this.userType=userType;	}
+		/**	 *编号	 */	private String id;
+	private String roleCode;	/**	 *名称	 */	private String roleName;	/**	 *创建人	 */	private String createBy;	/**	 * 小程序id	 */	private String xcxId;	/**	 *类型	 */	private String userType;	public String getId() {	    return this.id;	}	public void setId(String id) {	    this.id=id;	}	public String getRoleName() {	    return this.roleName;	}	public void setRoleName(String roleName) {	    this.roleName=roleName;	}	public String getCreateBy() {	    return this.createBy;	}	public void setCreateBy(String createBy) {	    this.createBy=createBy;	}	public String getXcxId() {	    return this.xcxId;	}	public void setXcxId(String xcxId) {	    this.xcxId=xcxId;	}	public String getUserType() {	    return this.userType;	}	public void setUserType(String userType) {	    this.userType=userType;	}
+	public String getRoleCode() {
+		return roleCode;
+	}
+	public void setRoleCode(String roleCode) {
+		this.roleCode = roleCode;
+	}
 }
 

@@ -50,7 +50,8 @@
 									<th>
 											<input type="checkbox" name="ckAll" id="ckAll" />
 					        		</th>
-											<th>名称</th>
+											<th>角色代码</th>
+											<th>角色名称</th>
 											<th> 小程序id</th>
 											<th>类型</th>
 									<th>操作</th>
@@ -62,6 +63,7 @@
 											<td>
 													<input type="checkbox" name="ck" id="ck_$!{velocityCount}" value="$!{info.id}"/>
 											</td>	
+														<td>$!{info.roleCode}</td>
 														<td>$!{info.roleName}</td>
 														<td>$!{info.xcxId}</td>
 														<td>$!{info.userType}</td>
