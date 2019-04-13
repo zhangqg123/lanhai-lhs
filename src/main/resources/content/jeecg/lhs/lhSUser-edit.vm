@@ -6,7 +6,7 @@
 		<div class="row">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-								<button type="button" class="btn btn-primary" id="formSubmit"><span class="fa fa-save"></span> 保存</button>
+								<button type="button" class="btn btn-primary" id="formSubmit" onclick="beforeSubmit()"><span class="fa fa-save"></span> 保存</button>
 				<button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" onclick="doUrl('$!{basePath}/jeecg/lhSUser.do?list')"><span class="fa fa-arrow-circle-left"></span> 返回</button>
 				</div>
 				<div class="panel-body">
@@ -14,6 +14,7 @@
 						<input type="hidden" id="btn_sub" class="btn_sub" />
 						<input type="hidden" value="$!{lhSUser.id}" name="id" id="id" />
 						<input type="hidden" value="$!{lhSUser.xcxid}" name="xcxid" id="xcxid"  />
+						<input type="hidden" value="$!{lhSUser.roleId}" name="roleId" id="roleId" />
 								<div class="form-group mno">
 								    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">手机</label>
 								    <div class="col-sm-8">
@@ -96,12 +97,19 @@
 								    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">角色</label>
 								    <div class="col-sm-8">
 								  <!--  	<input type="text" value="$!{lhSUser.roleId}" name="roleId" id="roleId" class="form-control" />	-->
-										<select name="roleId" id="roleId" class="form-control">
+								<!--		<select name="roleId" id="roleId" class="form-control">
 										 <option value="" >选择</option>
 										 #foreach($role in $roleList)
 											<option value="${role.id}" #if($!{lhSUser.roleId} == ${role.id})selected#end>--$!{role.roleName}</option>
 										 #end
-										</select>
+										</select>	-->
+										<div>
+										 #foreach($role in $roleList)
+                                            <label class="checkbox-inline">
+												<input type="checkbox" name="ck" id="ck_$!{velocityCount}" value="${role.id}" #if(${lhSUser.roleId.indexOf(${role.id})}!=-1) checked="checked" #end> $!{role.roleName}
+                                            </label>
+										 #end
+                                        </div>
 								    </div>
 								</div>
 								<div class="form-group mno">
@@ -124,3 +132,17 @@
 </html>
 <script type="text/javascript" src="$!{basePath}/plug-in-ui/js/Validform_v5.3.2.js"></script> 
 <script type="text/javascript" src="$!{basePath}/plug-in-ui/js/forminit.p3.js"></script>  
+<script>
+function beforeSubmit() {
+    var roles = [];
+    var check = document.getElementsByName("ck");
+    for(var i=0;i<check.length;i++){
+        if(check[i].checked){
+    		roles.push(check[i].value);
+        }
+    }
+//	alert(roles);
+	$("#roleId").val(roles);
+	$("#formSubmit").submit();
+}
+</script>

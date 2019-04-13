@@ -118,9 +118,16 @@ public class LhSApiController extends BaseController{
 				List<LhSUserEntity> lhSUserList = list.getResults();
 				if(lhSUserList.size()==1){
 					lhSUser=lhSUserList.get(0);
-					String roleCode="create";
+					String roleCode="";
 					if(lhSUser.getRoleId()!=null && lhSUser.getRoleId()!=""){
-						roleCode = lhSRoleService.get(lhSUser.getRoleId()).getRoleCode();
+						String[] roles=lhSUser.getRoleId().split(",");
+						for(int i=0;i<roles.length;i++){
+							roleCode+=lhSRoleService.get(roles[i]).getRoleCode()+",";
+						}
+						roleCode = roleCode.substring(0, roleCode.length() - 1);	
+//						roleCode = lhSRoleService.get(lhSUser.getRoleId()).getRoleCode();
+					}else{
+						roleCode="create";
 					}
 					Map<String,Object> attributes=new HashMap<String,Object>();
 					attributes.put("login_code", lhSUser.getId());
