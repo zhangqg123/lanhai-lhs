@@ -112,30 +112,42 @@ public class LhSApiController extends BaseController{
 			try{
 				LhSAccountEntity lhSAccount = lhSAccountService.getByAppId(xcxId);
 				encryptPass = AES128Util.decrypt(lhSUser.getPassword(), lhSAccount.getAesKey() ,lhSAccount.getIvKey());
-				lhSUser.setPassword(PasswordUtil.encrypt(lhSUser.getUsername(), encryptPass, PasswordUtil.getStaticSalt()));
+				String password=PasswordUtil.encrypt(lhSUser.getUsername(), encryptPass, PasswordUtil.getStaticSalt());
+				lhSUser.setPassword(null);
 				lhSUser.setXcxid(xcxId);
 				MiniDaoPage<LhSUserEntity> list = lhSUserService.getAll(lhSUser, 1, 10);
 				List<LhSUserEntity> lhSUserList = list.getResults();
-				if(lhSUserList.size()==1){
-					lhSUser=lhSUserList.get(0);
-					String roleCode="";
-					if(lhSUser.getRoleId()!=null && lhSUser.getRoleId()!=""){
-						String[] roles=lhSUser.getRoleId().split(",");
-						for(int i=0;i<roles.length;i++){
-							roleCode+=lhSRoleService.get(roles[i]).getRoleCode()+",";
+				Map<String,Object> attributes=new HashMap<String,Object>();
+				lhSUser=null;
+				if(lhSUserList.size()>0){
+					for(LhSUserEntity user:lhSUserList){
+						if(user.getPassword().equals(password)){
+							lhSUser=user;
+							break;
 						}
-						roleCode = roleCode.substring(0, roleCode.length() - 1);	
-//						roleCode = lhSRoleService.get(lhSUser.getRoleId()).getRoleCode();
+					}
+					if(lhSUser==null){
+						attributes.put("register", 1);
+						j.setAttributes(attributes);
+						j.setSuccess(false);
+						return j;
+					}
+//					lhSUser=lhSUserList.get(0);
+					String roleCode="";
+					if(lhSUser.getRoleCode()!=null && lhSUser.getRoleCode()!=""){
+						roleCode = lhSUser.getRoleCode();	
 					}else{
 						roleCode="create";
 					}
-					Map<String,Object> attributes=new HashMap<String,Object>();
 					attributes.put("login_code", lhSUser.getId());
 					attributes.put("role_code", roleCode);
 					attributes.put("status", lhSUser.getStatus());
+					attributes.put("register", 2);
 					j.setAttributes(attributes);
 					j.setSuccess(true);
 				}else{
+					attributes.put("register", 0);
+					j.setAttributes(attributes);
 					j.setSuccess(false);
 				}
 			} catch (Exception e) {
@@ -200,6 +212,7 @@ public class LhSApiController extends BaseController{
 			lhSUser.setPassword(PasswordUtil.encrypt(lhSUser.getUsername(), password, PasswordUtil.getStaticSalt()));
 			lhSUser.setDeptid(deptid);
 			lhSUser.setStatus(3);
+			lhSUser.setRoleCode("create");
 			lhSUserService.update(lhSUser);
 			j.setObj(lhSUser.getId());
 			attributes.put("status", 3);

@@ -17,6 +17,7 @@ INSERT  INTO
       ,XCXID         
       ,DEPTID
       ,role_id
+      ,role_code
       ) 
 values
       (
@@ -36,4 +37,5 @@ values
       ,:lhSUser.xcxid                         
       ,:lhSUser.deptid                        
       ,:lhSUser.roleId                        
+      ,:lhSUser.roleCode                        
       )

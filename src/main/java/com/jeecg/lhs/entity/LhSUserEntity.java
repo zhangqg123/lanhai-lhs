@@ -16,6 +16,7 @@ public class LhSUserEntity implements Serializable{
 	private String deptid;
 	
 	private String roleId;
+	private String roleCode;
 		public String getId() {	    return this.id;	}	public void setId(String id) {	    this.id=id;	}	public String getPhone() {	    return this.phone;	}	public void setPhone(String phone) {	    this.phone=phone;	}	public String getUsername() {	    return this.username;	}	public void setUsername(String username) {	    this.username=username;	}	public String getPassword() {	    return this.password;	}	public void setPassword(String password) {	    this.password=password;	}	public Integer getStatus() {	    return this.status;	}	public void setStatus(Integer status) {	    this.status=status;	}	public String getUserkey() {	    return this.userkey;	}	public void setUserkey(String userkey) {	    this.userkey=userkey;	}	public String getIdcard() {	    return this.idcard;	}	public void setIdcard(String idcard) {	    this.idcard=idcard;	}	public String getRealname() {	    return this.realname;	}	public void setRealname(String realname) {	    this.realname=realname;	}	public Integer getSex() {	    return this.sex;	}	public void setSex(Integer sex) {	    this.sex=sex;	}	public String getAddress() {	    return this.address;	}	public void setAddress(String address) {	    this.address=address;	}	public String getUsertype() {	    return this.usertype;	}	public void setUsertype(String usertype) {	    this.usertype=usertype;	}	public String getOpenid() {	    return this.openid;	}	public void setOpenid(String openid) {	    this.openid=openid;	}	public String getParent() {	    return this.parent;	}	public void setParent(String parent) {	    this.parent=parent;	}	public String getXcxid() {	    return this.xcxid;	}	public void setXcxid(String xcxid) {	    this.xcxid=xcxid;	}
 	public String getDeptid() {
 		return deptid;
@@ -28,6 +29,12 @@ public class LhSUserEntity implements Serializable{
 	}
 	public void setRoleId(String roleId) {
 		this.roleId = roleId;
+	}
+	public String getRoleCode() {
+		return roleCode;
+	}
+	public void setRoleCode(String roleCode) {
+		this.roleCode = roleCode;
 	}
 }
 

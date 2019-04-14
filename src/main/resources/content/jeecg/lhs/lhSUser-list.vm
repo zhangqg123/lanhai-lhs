@@ -99,10 +99,10 @@
 											<label for="roleId" class="control-label col-sm-3 line34">角色</label>
 											<div class="col-sm-8">
 											<!--	<input type="text" name="xcxid" id="xcxid" value="$!{lhSUser.xcxid}" class="form-control">	-->
-        										<select name="roleId" id="roleId" class="form-control">
+        										<select name="roleCode" id="roleCode" class="form-control">
         										 <option value="" >选择</option>
         										 #foreach($role in $roleList)
-        											<option value="${role.id}" #if($!{lhSUser.roleId} == ${role.id})selected#end>--$!{role.roleName}</option>
+        											<option value="${role.roleCode}" #if($!{lhSUser.roleCode} == ${role.roleCode})selected#end>--$!{role.roleName}</option>
         										 #end
         										</select>
 											</div>

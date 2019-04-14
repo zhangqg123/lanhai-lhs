@@ -98,9 +98,13 @@ public class LhSUserController extends BaseController{
 		if(xcxid!=null){
 			lhSUser.setXcxid(xcxid);
 		}
+		LhSRoleEntity lhSRoleEntity=new LhSRoleEntity();
+		lhSRoleEntity.setXcxId(lhSUser.getXcxid());
+		MiniDaoPage<LhSRoleEntity> rlist =  lhSRoleService.getAll(lhSRoleEntity,1,100);
 		VelocityContext velocityContext = new VelocityContext();
 		String viewName = "jeecg/lhs/lhSUser-add.vm";
 		velocityContext.put("lhSUser",lhSUser);
+		velocityContext.put("roleList",rlist.getResults());
 		ViewVelocity.view(request,response,viewName,velocityContext);
 	}
 

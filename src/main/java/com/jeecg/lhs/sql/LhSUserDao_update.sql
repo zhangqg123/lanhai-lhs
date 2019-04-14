@@ -48,4 +48,7 @@ SET
 	   <#if lhSUser.roleId ?exists>
 		   role_id = :lhSUser.roleId,
 		</#if>
+	   <#if lhSUser.roleCode ?exists>
+		   role_code = :lhSUser.roleCode,
+		</#if>
 WHERE id = :lhSUser.id
