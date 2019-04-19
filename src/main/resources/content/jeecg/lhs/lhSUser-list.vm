@@ -83,6 +83,7 @@
 												<input type="text" name="parent" id="parent" value="$!{lhSUser.parent}" class="form-control">
 											</div>
 										 </div>	-->
+								         #if($!{accountList})
 										 <div class="form-group col-sm-3">
 											<label for="xcxid" class="control-label col-sm-3 line34">小程序id</label>
 											<div class="col-sm-8">
@@ -95,6 +96,7 @@
         										</select>
 											</div>
 										 </div>
+										 #end
 										 <div class="form-group col-sm-3">
 											<label for="roleId" class="control-label col-sm-3 line34">角色</label>
 											<div class="col-sm-8">
@@ -153,7 +155,7 @@
 														<td>$!{info.realname}</td>
 														<td>
 														#foreach($role in $roleList)
-															#if($!{info.roleId} == ${role.id})
+															#if(${info.roleCode}&&${info.roleCode.indexOf(${role.roleCode})}!=-1)
 																$!{role.roleName}
 															#end
 														 #end

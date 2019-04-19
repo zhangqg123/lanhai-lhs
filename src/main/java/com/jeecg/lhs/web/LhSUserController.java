@@ -7,6 +7,7 @@ import org.apache.velocity.VelocityContext;
 import org.jeecgframework.minidao.pojo.MiniDaoPage;
 import org.jeecgframework.p3.core.common.utils.AjaxJson;
 import org.jeecgframework.p3.core.page.SystemTools;
+import org.jeecgframework.p3.core.util.oConvertUtils;
 import org.jeecgframework.p3.core.util.plugin.ViewVelocity;
 import org.jeecgframework.p3.core.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,14 @@ public class LhSUserController extends BaseController{
 			try {
 			 	LOG.info(request, " back list");
 			 	//分页数据
-				MiniDaoPage<LhSAccountEntity> alist =  lhSAccountService.getAll(new LhSAccountEntity(),1,100);
+				String xcxId=(String) request.getSession().getAttribute("departAddress");
+				MiniDaoPage<LhSAccountEntity> alist = null;
+				if(!oConvertUtils.isEmpty(xcxId)){
+					query.setXcxid(xcxId);;
+				}else{
+					alist =  lhSAccountService.getAll(new LhSAccountEntity(),1,100);					
+				}
+
 				MiniDaoPage<LhSUserEntity> list =  lhSUserService.getAll(query,pageNo,pageSize);
 				VelocityContext velocityContext = new VelocityContext();
 				velocityContext.put("lhSUser",query);
@@ -65,7 +73,10 @@ public class LhSUserController extends BaseController{
 					MiniDaoPage<LhSRoleEntity> rlist =  lhSRoleService.getAll(lhSRoleEntity,1,100);
 					velocityContext.put("roleList",rlist.getResults());
 				}
-				velocityContext.put("accountList",alist.getResults());
+				if(alist!=null){
+					velocityContext.put("accountList",alist.getResults());
+				}
+				
 				velocityContext.put("pageInfos",SystemTools.convertPaginatedList(list));
 				String viewName = "jeecg/lhs/lhSUser-list.vm";
 				ViewVelocity.view(request,response,viewName,velocityContext);
@@ -93,10 +104,14 @@ public class LhSUserController extends BaseController{
 	 */
 	@RequestMapping(params = "toAdd",method ={RequestMethod.GET, RequestMethod.POST})
 	public void toAddDialog(HttpServletRequest request,HttpServletResponse response)throws Exception{
-		String xcxid=request.getParameter("xcxid");
+		String xcxId=(String) request.getSession().getAttribute("departAddress");
+		if(oConvertUtils.isEmpty(xcxId)){
+			xcxId=request.getParameter("xcxid");
+		}
+
 		LhSUserEntity lhSUser = new LhSUserEntity();
-		if(xcxid!=null){
-			lhSUser.setXcxid(xcxid);
+		if(!oConvertUtils.isEmpty(xcxId)){
+			lhSUser.setXcxid(xcxId);
 		}
 		LhSRoleEntity lhSRoleEntity=new LhSRoleEntity();
 		lhSRoleEntity.setXcxId(lhSUser.getXcxid());

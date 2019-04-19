@@ -2,6 +2,7 @@ package com.jeecg.lhs.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.velocity.VelocityContext;
 import org.jeecgframework.minidao.pojo.MiniDaoPage;
 import org.jeecgframework.p3.core.common.utils.AjaxJson;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.jeecg.lhs.entity.LhSRoleEntity;
 import com.jeecg.lhs.service.LhSRoleService;
 
@@ -71,9 +73,14 @@ public class LhSRoleController extends BaseController{
 	 */
 	@RequestMapping(params = "toAdd",method ={RequestMethod.GET, RequestMethod.POST})
 	public void toAddDialog(HttpServletRequest request,HttpServletResponse response)throws Exception{
-		 VelocityContext velocityContext = new VelocityContext();
-		 String viewName = "jeecg/lhs/lhSRole-add.vm";
-		 ViewVelocity.view(request,response,viewName,velocityContext);
+		String rolecodes=(String) request.getSession().getAttribute("rolecodes");
+		String xcxId=(String) request.getSession().getAttribute("departAddress");
+		VelocityContext velocityContext = new VelocityContext();
+		if(!rolecodes.contains("admin") && xcxId!=null){
+			velocityContext.put("xcxId", xcxId);
+		}
+		String viewName = "jeecg/lhs/lhSRole-add.vm";
+		ViewVelocity.view(request,response,viewName,velocityContext);
 	}
 
 	/**
