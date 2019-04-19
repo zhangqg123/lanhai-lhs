@@ -68,6 +68,12 @@ public interface LhSAccountDao{
 	
 	@Sql("SELECT id,userName,realName FROM t_s_base_user where id in (select tsru.userid from t_s_role_user tsru left join t_s_role tsr on tsr.id=tsru.roleid where tsr.rolecode ='exam' or tsr.rolecode='admin') ")
 	List<User> getUserList();
+		
+	@Sql("SELECT tsbu.id,tsbu.username,tsbu.realname FROM t_s_base_user tsbu left join t_s_role_user tsru on tsbu.id=tsru.userid where tsru.roleid= (select id from t_s_role where rolecode=:rolecode)")
+	public List<User> getUsers(@Param("rolecode") String rolecode);
+	
+	@Sql("SELECT id, username, realname FROM t_s_base_user where id=:userId")
+	User getUserById(@Param("userId") String userId);
 	
 }
 

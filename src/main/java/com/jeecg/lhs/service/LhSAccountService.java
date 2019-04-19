@@ -32,5 +32,9 @@ public interface LhSAccountService {
 	public LhSAccountEntity getByAppId(String appId);
 
 	public List<User> getUserList();
+
+	public List<User> getUsers(String role);
+
+	public User getUserById(String userId);
 	
 }

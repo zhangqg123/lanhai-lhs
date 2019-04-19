@@ -66,13 +66,22 @@ public class LhSAccountServiceImpl implements LhSAccountService {
 
 	@Override
 	public LhSAccountEntity getByAppId(String appId) {
-		// TODO Auto-generated method stub
 		return lhSAccountDao.getByAppId(appId);
 	}
 
 	@Override
 	public List<User> getUserList() {
-		// TODO Auto-generated method stub
 		return lhSAccountDao.getUserList();
+	}
+
+	@Override
+	public List<User> getUsers(String role) {
+		return lhSAccountDao.getUsers(role);
+	}
+
+	@Override
+	public User getUserById(String userId) {
+		// TODO Auto-generated method stub
+		return lhSAccountDao.getUserById(userId) ;
 	}
 }
