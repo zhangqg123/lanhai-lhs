@@ -1,0 +1,21 @@
+INSERT  INTO
+	lh_s_blacklist
+      ( 
+      ID                            
+      ,PHONE                          
+      ,OPEN_ID                        
+      ,STATUS                         
+      ,IDCARD                         
+      ,CREATE_BY                      
+      ,CREATE_DATE                    
+      ) 
+values
+      (
+      :lhSBlacklist.id                            
+      ,:lhSBlacklist.phone                         
+      ,:lhSBlacklist.openId                        
+      ,:lhSBlacklist.status                        
+      ,:lhSBlacklist.idcard                        
+      ,:lhSBlacklist.createBy                      
+      ,:lhSBlacklist.createDate                    
+      )

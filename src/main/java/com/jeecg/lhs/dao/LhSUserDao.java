@@ -55,11 +55,11 @@ public interface LhSUserDao{
 	 * 根据ID删除
 	 * @param id
 	 */
-	 @Sql("DELETE from lh_s_user WHERE ID = :id")
-	 public void deleteById(@Param("id") String id);
+	@Sql("DELETE from lh_s_user WHERE ID = :id")
+	public void deleteById(@Param("id") String id);
 	 
-	@Sql("SELECT * FROM lh_s_user WHERE openid = :openId")
-	LhSUserEntity getByOpenId(@Param("openId") String openId);
-	
+	@Sql("SELECT * FROM lh_s_user WHERE openid = :openid")
+	public LhSUserEntity getByOpenId(@Param("openid") String openid);
+
 }
 

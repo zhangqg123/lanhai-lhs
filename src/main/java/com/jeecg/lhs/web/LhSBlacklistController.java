@@ -2,12 +2,10 @@ package com.jeecg.lhs.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.velocity.VelocityContext;
 import org.jeecgframework.minidao.pojo.MiniDaoPage;
 import org.jeecgframework.p3.core.common.utils.AjaxJson;
 import org.jeecgframework.p3.core.page.SystemTools;
-import org.jeecgframework.p3.core.util.oConvertUtils;
 import org.jeecgframework.p3.core.util.plugin.ViewVelocity;
 import org.jeecgframework.p3.core.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,68 +15,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.jeecg.lhs.entity.LhSBlacklistEntity;
+import com.jeecg.lhs.service.LhSBlacklistService;
 
-import com.jeecg.lhs.entity.LhSAccountEntity;
-import com.jeecg.lhs.entity.LhSDeptEntity;
-import com.jeecg.lhs.entity.LhSRoleEntity;
-import com.jeecg.lhs.entity.LhSUserEntity;
-import com.jeecg.lhs.service.LhSAccountService;
-import com.jeecg.lhs.service.LhSDeptService;
-import com.jeecg.lhs.service.LhSRoleService;
-import com.jeecg.lhs.service.LhSUserService;
-
-/**
- * 描述：用户表
+ /**
+ * 描述：黑名单表
  * @author: www.jeecg.org
- * @since：2019年02月14日 07时41分17秒 星期四 
+ * @since：2019年04月23日 09时42分42秒 星期二 
  * @version:1.0
  */
 @Controller
-@RequestMapping("/jeecg/lhSUser")
-public class LhSUserController extends BaseController{
+@RequestMapping("/jeecg/lhSBlacklist")
+public class LhSBlacklistController extends BaseController{
   @Autowired
-  private LhSUserService lhSUserService;
-  @Autowired
-  private LhSDeptService lhSDeptService;
-  @Autowired
-  private LhSRoleService lhSRoleService;
-  @Autowired
-  private LhSAccountService lhSAccountService;
+  private LhSBlacklistService lhSBlacklistService;
   
 	/**
 	  * 列表页面
 	  * @return
 	  */
 	@RequestMapping(params = "list",method = {RequestMethod.GET,RequestMethod.POST})
-	public void list(@ModelAttribute LhSUserEntity query,HttpServletRequest request,HttpServletResponse response,
+	public void list(@ModelAttribute LhSBlacklistEntity query,HttpServletRequest request,HttpServletResponse response,
 			@RequestParam(required = false, value = "pageNo", defaultValue = "1") int pageNo,
 			@RequestParam(required = false, value = "pageSize", defaultValue = "10") int pageSize) throws Exception{
 			try {
 			 	LOG.info(request, " back list");
 			 	//分页数据
-				String xcxId=(String) request.getSession().getAttribute("departAddress");
-				MiniDaoPage<LhSAccountEntity> alist = null;
-				if(!oConvertUtils.isEmpty(xcxId)){
-					query.setXcxid(xcxId);;
-				}else{
-					alist =  lhSAccountService.getAll(new LhSAccountEntity(),1,100);					
-				}
-
-				MiniDaoPage<LhSUserEntity> list =  lhSUserService.getAll(query,pageNo,pageSize);
+				MiniDaoPage<LhSBlacklistEntity> list =  lhSBlacklistService.getAll(query,pageNo,pageSize);
 				VelocityContext velocityContext = new VelocityContext();
-				velocityContext.put("lhSUser",query);
-				if(query.getXcxid()!=null){
-					LhSRoleEntity lhSRoleEntity=new LhSRoleEntity();
-					lhSRoleEntity.setXcxId(query.getXcxid());
-					MiniDaoPage<LhSRoleEntity> rlist =  lhSRoleService.getAll(lhSRoleEntity,1,100);
-					velocityContext.put("roleList",rlist.getResults());
-				}
-				if(alist!=null){
-					velocityContext.put("accountList",alist.getResults());
-				}
-				
+				velocityContext.put("lhSBlacklist",query);
 				velocityContext.put("pageInfos",SystemTools.convertPaginatedList(list));
-				String viewName = "jeecg/lhs/lhSUser-list.vm";
+				String viewName = "jeecg/lhs/lhSBlacklist-list.vm";
 				ViewVelocity.view(request,response,viewName,velocityContext);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -90,11 +57,11 @@ public class LhSUserController extends BaseController{
 	  * @return
 	  */
 	@RequestMapping(params="toDetail",method = RequestMethod.GET)
-	public void lhSUserDetail(@RequestParam(required = true, value = "id" ) String id,HttpServletResponse response,HttpServletRequest request)throws Exception{
+	public void lhSBlacklistDetail(@RequestParam(required = true, value = "id" ) String id,HttpServletResponse response,HttpServletRequest request)throws Exception{
 			VelocityContext velocityContext = new VelocityContext();
-			String viewName = "jeecg/lhs/lhSUser-detail.vm";
-			LhSUserEntity lhSUser = lhSUserService.get(id);
-			velocityContext.put("lhSUser",lhSUser);
+			String viewName = "jeecg/lhs/lhSBlacklist-detail.vm";
+			LhSBlacklistEntity lhSBlacklist = lhSBlacklistService.get(id);
+			velocityContext.put("lhSBlacklist",lhSBlacklist);
 			ViewVelocity.view(request,response,viewName,velocityContext);
 	}
 
@@ -104,23 +71,9 @@ public class LhSUserController extends BaseController{
 	 */
 	@RequestMapping(params = "toAdd",method ={RequestMethod.GET, RequestMethod.POST})
 	public void toAddDialog(HttpServletRequest request,HttpServletResponse response)throws Exception{
-		String xcxId=(String) request.getSession().getAttribute("departAddress");
-		if(oConvertUtils.isEmpty(xcxId)){
-			xcxId=request.getParameter("xcxid");
-		}
-
-		LhSUserEntity lhSUser = new LhSUserEntity();
-		if(!oConvertUtils.isEmpty(xcxId)){
-			lhSUser.setXcxid(xcxId);
-		}
-		LhSRoleEntity lhSRoleEntity=new LhSRoleEntity();
-		lhSRoleEntity.setXcxId(lhSUser.getXcxid());
-		MiniDaoPage<LhSRoleEntity> rlist =  lhSRoleService.getAll(lhSRoleEntity,1,100);
-		VelocityContext velocityContext = new VelocityContext();
-		String viewName = "jeecg/lhs/lhSUser-add.vm";
-		velocityContext.put("lhSUser",lhSUser);
-		velocityContext.put("roleList",rlist.getResults());
-		ViewVelocity.view(request,response,viewName,velocityContext);
+		 VelocityContext velocityContext = new VelocityContext();
+		 String viewName = "jeecg/lhs/lhSBlacklist-add.vm";
+		 ViewVelocity.view(request,response,viewName,velocityContext);
 	}
 
 	/**
@@ -129,10 +82,10 @@ public class LhSUserController extends BaseController{
 	 */
 	@RequestMapping(params = "doAdd",method ={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public AjaxJson doAdd(@ModelAttribute LhSUserEntity lhSUser){
+	public AjaxJson doAdd(@ModelAttribute LhSBlacklistEntity lhSBlacklist){
 		AjaxJson j = new AjaxJson();
 		try {
-			lhSUserService.insert(lhSUser);
+			lhSBlacklistService.insert(lhSBlacklist);
 			j.setMsg("保存成功");
 		} catch (Exception e) {
 			j.setSuccess(false);
@@ -148,17 +101,11 @@ public class LhSUserController extends BaseController{
 	 */
 	@RequestMapping(params="toEdit",method = RequestMethod.GET)
 	public void toEdit(@RequestParam(required = true, value = "id" ) String id,HttpServletResponse response,HttpServletRequest request) throws Exception{
-		MiniDaoPage<LhSDeptEntity> list =  lhSDeptService.getAll(new LhSDeptEntity(),1,200);
-		VelocityContext velocityContext = new VelocityContext();
-		LhSUserEntity lhSUser = lhSUserService.get(id);
-		LhSRoleEntity lhSRoleEntity=new LhSRoleEntity();
-		lhSRoleEntity.setXcxId(lhSUser.getXcxid());
-		MiniDaoPage<LhSRoleEntity> rlist =  lhSRoleService.getAll(lhSRoleEntity,1,100);
-		velocityContext.put("lhSUser",lhSUser);
-		velocityContext.put("deptList",list.getResults());
-		velocityContext.put("roleList",rlist.getResults());
-		String viewName = "jeecg/lhs/lhSUser-edit.vm";
-		ViewVelocity.view(request,response,viewName,velocityContext);
+			 VelocityContext velocityContext = new VelocityContext();
+			 LhSBlacklistEntity lhSBlacklist = lhSBlacklistService.get(id);
+			 velocityContext.put("lhSBlacklist",lhSBlacklist);
+			 String viewName = "jeecg/lhs/lhSBlacklist-edit.vm";
+			 ViewVelocity.view(request,response,viewName,velocityContext);
 	}
 
 	/**
@@ -167,10 +114,10 @@ public class LhSUserController extends BaseController{
 	 */
 	@RequestMapping(params = "doEdit",method ={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public AjaxJson doEdit(@ModelAttribute LhSUserEntity lhSUser){
+	public AjaxJson doEdit(@ModelAttribute LhSBlacklistEntity lhSBlacklist){
 		AjaxJson j = new AjaxJson();
 		try {
-			lhSUserService.update(lhSUser);
+			lhSBlacklistService.update(lhSBlacklist);
 			j.setMsg("编辑成功");
 		} catch (Exception e) {
 			j.setSuccess(false);
@@ -190,7 +137,7 @@ public class LhSUserController extends BaseController{
 	public AjaxJson doDelete(@RequestParam(required = true, value = "id" ) String id){
 			AjaxJson j = new AjaxJson();
 			try {
-				lhSUserService.delete(id);
+				lhSBlacklistService.delete(id);
 				j.setMsg("删除成功");
 			} catch (Exception e) {
 				j.setSuccess(false);
@@ -210,7 +157,7 @@ public class LhSUserController extends BaseController{
 	public AjaxJson batchDelete(@RequestParam(required = true, value = "ids") String[] ids) {
 		AjaxJson j = new AjaxJson();
 		try {
-			lhSUserService.batchDelete(ids);
+			lhSBlacklistService.batchDelete(ids);
 			j.setMsg("批量删除成功");
 		} catch(Exception e) {
 			j.setSuccess(false);
@@ -219,7 +166,6 @@ public class LhSUserController extends BaseController{
 		}
 		return j;
 	}
-	
 
 }
 

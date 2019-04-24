@@ -6,8 +6,11 @@ import java.util.UUID;
 
 import org.jeecgframework.minidao.pojo.MiniDaoPage;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.jeecg.lhs.dao.LhSBlacklistDao;
 import com.jeecg.lhs.dao.LhSUserDao;
+import com.jeecg.lhs.entity.LhSBlacklistEntity;
 import com.jeecg.lhs.entity.LhSUserEntity;
 import com.jeecg.lhs.service.LhSUserService;
 
@@ -22,7 +25,9 @@ import com.jeecg.lhs.service.LhSUserService;
 public class LhSUserServiceImpl implements LhSUserService {
 	@Resource
 	private LhSUserDao lhSUserDao;
-
+	private LhSBlacklistDao lhSBlacklistDao;
+//	private LhDsAskDao lhDsAskDao;
+	
 	@Override
 	public LhSUserEntity get(String id) {
 		return lhSUserDao.get(id);
@@ -65,4 +70,6 @@ public class LhSUserServiceImpl implements LhSUserService {
 		// TODO Auto-generated method stub
 		return lhSUserDao.getByOpenId(openId);
 	}
+	
+
 }

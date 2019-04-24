@@ -25,5 +25,6 @@ public interface LhSUserService {
 	public void batchDelete(String[] ids);
 
 	public LhSUserEntity getByOpenId(String openId);
+
 	
 }
