@@ -21,4 +21,7 @@ SET
 	    <#if lhSBlacklist.createDate ?exists>
 		   CREATE_DATE = :lhSBlacklist.createDate,
 		</#if>
+	   <#if lhSBlacklist.xcxId ?exists>
+		   XCX_ID = :lhSBlacklist.xcxId,
+		</#if>
 WHERE id = :lhSBlacklist.id

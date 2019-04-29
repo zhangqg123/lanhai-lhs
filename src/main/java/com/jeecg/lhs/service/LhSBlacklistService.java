@@ -12,7 +12,7 @@ import com.jeecg.lhs.entity.LhSBlacklistEntity;
  */
 public interface LhSBlacklistService {
 	public LhSBlacklistEntity get(String id);
-
+	public LhSBlacklistEntity getByPhone(String phone);
 	public int update(LhSBlacklistEntity lhSBlacklist);
 
 	public void insert(LhSBlacklistEntity lhSBlacklist);

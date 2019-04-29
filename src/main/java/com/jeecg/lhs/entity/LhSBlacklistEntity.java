@@ -12,6 +12,14 @@ import java.math.BigDecimal;
  */
 public class LhSBlacklistEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
-		/**	 *id	 */	private String id;	/**	 *手机	 */	private String phone;	/**	 *openId	 */	private String openId;	/**	 *状态	 */	private Integer status;	/**	 *身份证号	 */	private String idcard;	/**	 *创建人	 */	private String createBy;	/**	 *创建日期	 */	private Date createDate;	public String getId() {	    return this.id;	}	public void setId(String id) {	    this.id=id;	}	public String getPhone() {	    return this.phone;	}	public void setPhone(String phone) {	    this.phone=phone;	}	public String getOpenId() {	    return this.openId;	}	public void setOpenId(String openId) {	    this.openId=openId;	}	public Integer getStatus() {	    return this.status;	}	public void setStatus(Integer status) {	    this.status=status;	}	public String getIdcard() {	    return this.idcard;	}	public void setIdcard(String idcard) {	    this.idcard=idcard;	}	public String getCreateBy() {	    return this.createBy;	}	public void setCreateBy(String createBy) {	    this.createBy=createBy;	}	public Date getCreateDate() {	    return this.createDate;	}	public void setCreateDate(Date createDate) {	    this.createDate=createDate;	}
+		/**	 *id	 */	private String id;	/**	 *手机	 */	private String phone;	/**	 *openId	 */	private String openId;	/**	 *状态	 */	private Integer status;	/**	 *身份证号	 */	private String idcard;	/**	 *创建人	 */	private String createBy;	/**	 *创建日期	 */	private Date createDate;
+	private String xcxId;
+		public String getId() {	    return this.id;	}	public void setId(String id) {	    this.id=id;	}	public String getPhone() {	    return this.phone;	}	public void setPhone(String phone) {	    this.phone=phone;	}	public String getOpenId() {	    return this.openId;	}	public void setOpenId(String openId) {	    this.openId=openId;	}	public Integer getStatus() {	    return this.status;	}	public void setStatus(Integer status) {	    this.status=status;	}	public String getIdcard() {	    return this.idcard;	}	public void setIdcard(String idcard) {	    this.idcard=idcard;	}	public String getCreateBy() {	    return this.createBy;	}	public void setCreateBy(String createBy) {	    this.createBy=createBy;	}	public Date getCreateDate() {	    return this.createDate;	}	public void setCreateDate(Date createDate) {	    this.createDate=createDate;	}
+	public String getXcxId() {
+		return xcxId;
+	}
+	public void setXcxId(String xcxId) {
+		this.xcxId = xcxId;
+	}
 }
 

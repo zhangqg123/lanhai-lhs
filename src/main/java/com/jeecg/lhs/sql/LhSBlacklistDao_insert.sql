@@ -7,7 +7,8 @@ INSERT  INTO
       ,STATUS                         
       ,IDCARD                         
       ,CREATE_BY                      
-      ,CREATE_DATE                    
+      ,CREATE_DATE    
+      ,XCX_ID
       ) 
 values
       (
@@ -18,4 +19,5 @@ values
       ,:lhSBlacklist.idcard                        
       ,:lhSBlacklist.createBy                      
       ,:lhSBlacklist.createDate                    
+      ,:lhSBlacklist.xcxId 
       )

@@ -26,3 +26,7 @@
 		    /* 创建日期 */
 			and lsb.CREATE_DATE = :lhSBlacklist.createDate
 		</#if>
+		<#if ( lhSBlacklist.xcxId )?? && lhSBlacklist.xcxId ?length gt 0>
+		    /* openId */
+			and lsb.XCX_ID = :lhSBlacklist.xcxId
+		</#if>

@@ -25,6 +25,9 @@ public interface LhSBlacklistDao{
 	@Sql("SELECT * FROM lh_s_blacklist WHERE ID = :id")
 	LhSBlacklistEntity get(@Param("id") String id);
 	
+	@Sql("SELECT * FROM lh_s_blacklist WHERE phone = :phone")
+	LhSBlacklistEntity getByPhone(@Param("phone") String phone);
+	
 	/**
 	 * 修改数据
 	 * @param lhSBlacklist

@@ -1,7 +1,9 @@
 package com.jeecg.lhs.service.impl;
 
 import javax.annotation.Resource;
+
 import java.util.UUID;
+
 import org.jeecgframework.minidao.pojo.MiniDaoPage;
 import org.springframework.stereotype.Service;
 
@@ -56,5 +58,10 @@ public class LhSBlacklistServiceImpl implements LhSBlacklistService {
 			String id = ids[i];
 			lhSBlacklistDao.deleteById(id);
 		}
+	}
+
+	@Override
+	public LhSBlacklistEntity getByPhone(String phone) {
+		return lhSBlacklistDao.getByPhone(phone);
 	}
 }
