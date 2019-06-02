@@ -50,3 +50,7 @@
 		    /* 关联用户 */
 			and lsa.sms_templateid = :lhSAccount.smsTemplateid
 		</#if>
+		<#if ( lhSAccount.xcxTemplateid )?? && lhSAccount.xcxTemplateid ?length gt 0>
+		    /* 关联用户 */
+			and lsa.xcx_templateid = :lhSAccount.xcxTemplateid
+		</#if>

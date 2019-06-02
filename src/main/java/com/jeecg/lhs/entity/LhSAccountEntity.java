@@ -23,7 +23,7 @@ public class LhSAccountEntity implements Serializable{
 	private String smsAppid;
 	private String smsAppkey;
 	private String smsTemplateid;
-		public String getId() {	    return this.id;	}	public void setId(String id) {	    this.id=id;	}	public String getAccountName() {	    return this.accountName;	}	public void setAccountName(String accountName) {	    this.accountName=accountName;	}	public String getAppId() {	    return this.appId;	}	public void setAppId(String appId) {	    this.appId=appId;	}	public String getAppSecret() {	    return this.appSecret;	}	public void setAppSecret(String appSecret) {	    this.appSecret=appSecret;	}	public String getUserId() {	    return this.userId;	}	public void setUserId(String userId) {	    this.userId=userId;	}
+	private String xcxTemplateid;		public String getId() {	    return this.id;	}	public void setId(String id) {	    this.id=id;	}	public String getAccountName() {	    return this.accountName;	}	public void setAccountName(String accountName) {	    this.accountName=accountName;	}	public String getAppId() {	    return this.appId;	}	public void setAppId(String appId) {	    this.appId=appId;	}	public String getAppSecret() {	    return this.appSecret;	}	public void setAppSecret(String appSecret) {	    this.appSecret=appSecret;	}	public String getUserId() {	    return this.userId;	}	public void setUserId(String userId) {	    this.userId=userId;	}
 	public String getLat() {
 		return lat;
 	}
@@ -77,6 +77,12 @@ public class LhSAccountEntity implements Serializable{
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	public String getXcxTemplateid() {
+		return xcxTemplateid;
+	}
+	public void setXcxTemplateid(String xcxTemplateid) {
+		this.xcxTemplateid = xcxTemplateid;
 	}
 }
 

@@ -14,6 +14,7 @@ INSERT  INTO
       ,sms_appid
       ,sms_appkey
       ,sms_templateid
+      ,xcx_templateid
       ) 
 values
       (
@@ -29,5 +30,6 @@ values
       ,:lhSAccount.ivKey                     
       ,:lhSAccount.smsAppid                        
       ,:lhSAccount.smsAppkey                        
-      ,:lhSAccount.smsTemplateid                        
+      ,:lhSAccount.smsTemplateid   
+      ,:lhSAccount.xcxTemplateid 
       )

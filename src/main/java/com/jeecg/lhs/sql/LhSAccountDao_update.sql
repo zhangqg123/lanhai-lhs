@@ -39,4 +39,7 @@ SET
 	   <#if lhSAccount.smsTemplateid ?exists>
 		   sms_templateid = :lhSAccount.smsTemplateid,
 		</#if>
+	   <#if lhSAccount.xcxTemplateid ?exists>
+		   xcx_templateid = :lhSAccount.xcxTemplateid,
+		</#if>
 WHERE id = :lhSAccount.id
